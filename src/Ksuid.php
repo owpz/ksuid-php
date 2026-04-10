@@ -48,6 +48,9 @@ class Ksuid
     public static function generate(): self
     {
         $timestamp = time() - self::KSUID_EPOCH;
+        if ($timestamp < 0 || $timestamp > 0xFFFFFFFF) {
+            throw new \OverflowException('Current timestamp offset exceeds uint32 range for KSUID');
+        }
         $payload = random_bytes(self::PAYLOAD_BYTES);
 
         $raw = pack('N', $timestamp) . $payload;
@@ -357,6 +360,12 @@ class Ksuid
 
         if ($raw === '' || $raw === false) {
             $raw = '';
+        }
+
+        if (strlen($raw) > self::TOTAL_BYTES) {
+            throw new \OverflowException(
+                sprintf('Decoded value exceeds %d bytes (got %d)', self::TOTAL_BYTES, strlen($raw))
+            );
         }
 
         return str_pad($raw, self::TOTAL_BYTES, "\x00", STR_PAD_LEFT);
