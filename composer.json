@@ -1,0 +1,32 @@
+{
+    "name": "owpz/ksuid-php",
+    "description": "K-Sortable Unique Identifier (KSUID) generator for PHP. Cross-compatible with owpz/ksuid (TypeScript) and owpz/ksuid-rs (Rust). Backward-compatible with segmentio/ksuid (Go).",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["ksuid", "uuid", "identifier", "sortable", "unique", "k-sortable"],
+    "homepage": "https://github.com/owpz/ksuid-php",
+    "require": {
+        "php": "^8.2",
+        "ext-gmp": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0 || ^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Owpz\\Ksuid\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Owpz\\Ksuid\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "test:verbose": "phpunit --colors=always --testdox"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
